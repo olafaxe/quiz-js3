@@ -1,6 +1,51 @@
 .quizadd__container {
   margin: 0px;
-  width: 44%;
-  background-color: #9bcada;
-  margin: 15px 0px 5px 0px;
+  width: 85%;
+  background-color: #cedce0;
+  box-shadow: 4px 4px 0px 0px #676e70;
+
+  margin: 15px 0px 10px 0px;
+  padding: 2px 0px 2px 0px;
+  h4 {
+    margin: 5px 0px 5px 0px;
+  }
+}
+
+.quizadd__header {
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+}
+.quizadd--toggle {
+  box-shadow: 2px 2px 0px 0px #b9b7b7;
+  margin: 4px 4px 0px 0px;
+  border: none;
+  width: 50px;
+  height: 50px;
+}
+.quizadd--title {
+  margin: 0px 0px 0px 50px;
+  flex: 2;
+}
+
+.quizadd--taglist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 5px 0px;
+  div {
+    padding: 0px 10px 0px 10px;
+  }
+}
+
+.quizadd--add {
+  width: 100%;
+  height: 25px;
+  border: 0;
+  background-color: #00000015;
+}
+
+.quizadd--text {
+  resize: none;
+  border: none;
 }

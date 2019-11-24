@@ -3,10 +3,23 @@ import "./App.css";
 
 import QuizList from "./components/QuizList/QuizList";
 import QuizAdd from "./components/QuizAdd/QuizAdd";
+import QuizFilter from "./components/QuizFilter/QuizFilter";
 
 const App = () => {
   const [qList, setQList] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState("All");
 
+  const toggleFilter = e => {
+    setSelectedFilter(e.target.value);
+  };
+
+  const filterQuizItems = items => {
+    if (selectedFilter === "All") {
+      return items;
+    } else {
+      return items.filter(item => item.tag === selectedFilter);
+    }
+  };
   const gettingData = async url => {
     try {
       let res = await fetch(url);
@@ -45,9 +58,8 @@ const App = () => {
     }
   };
 
-  const addQuizItem = (q, a) => {
-    let quizItem = { question: q, answer: a, date: Date.now() };
-    console.log(quizItem);
+  const addQuizItem = (q, a, t) => {
+    let quizItem = { question: q, answer: a, tag: t, date: Date.now() };
     sendingData("/quiz", "POST", quizItem).then(data => {
       if (data) {
         setQList([data, ...qList]);
@@ -75,11 +87,16 @@ const App = () => {
     );
   }, []);
 
-  console.log(qList);
   return (
     <div className="App">
       <QuizAdd addQuizItem={addQuizItem} />
-      <QuizList qList={qList} deleteQuizItem={deleteQuizItem} />
+      <QuizFilter toggleFilter={toggleFilter} />
+      {qList ? (
+        <QuizList
+          filteredList={filterQuizItems(qList)}
+          deleteQuizItem={deleteQuizItem}
+        />
+      ) : null}
     </div>
   );
 };

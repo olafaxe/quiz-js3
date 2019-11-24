@@ -1,6 +1,35 @@
 .quizitem__container {
-  width: 55%;
+  width: 85%;
   margin: 5px 0px 5px 0px;
+}
+
+.quizitem--delete {
+  width: 20px;
+  height: 20px;
+  display: block;
+  float: right;
+  color: #f8f8f8;
+  background-color: red;
+}
+
+.quizitem--toggle {
+  width: 100%;
+  background-color: #00000013;
+  border: none;
+}
+
+.quizitem--Angular {
+  background-color: #f53b63;
+  box-shadow: 4px 4px 0px 0px #791b2f;
+  color: #f8f8f8;
+}
+
+.quizitem--React {
   background-color: #bae6f5;
   box-shadow: 4px 4px 0px 0px #7baab9;
+}
+
+.quizitem--Misc {
+  background-color: #cedce0;
+  box-shadow: 4px 4px 0px 0px #808283;
 }

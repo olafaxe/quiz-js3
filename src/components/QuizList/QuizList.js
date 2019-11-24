@@ -1,14 +1,15 @@
 import React from "react";
 import QuizItem from "../QuizItem/QuizItem";
-const QuizList = ({ qList, deleteQuizItem }) => {
+const QuizList = ({ filteredList, deleteQuizItem }) => {
   return (
     <>
-      {qList.map(q => {
+      {filteredList.map(q => {
         return (
           <QuizItem
             key={q._id}
             question={q.question}
             answer={q.answer}
+            tag={q.tag}
             deleteQ={() => deleteQuizItem(q._id)}
           />
         );
