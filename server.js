@@ -17,7 +17,7 @@ let db;
 
 client.connect(function(err) {
   if (err) throw err;
-  db = client.db("js3");
+  db = client.db("heroku_74kwxvw6");
 });
 
 app.use(
