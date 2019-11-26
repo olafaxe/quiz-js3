@@ -1,0 +1,23 @@
+.quizplayitem__container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.quizplayitem--answer {
+  width: 45%;
+  height: 50px;
+  background-color: #abe4ce;
+  box-shadow: 2px 2px 2px 0px #88b6a4;
+  border: solid 2px #5e7e7186;
+  margin: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h4 {
+    text-align: center;
+    margin: 0;
+  }
+}

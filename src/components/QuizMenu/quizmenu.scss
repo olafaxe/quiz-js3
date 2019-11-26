@@ -1,0 +1,12 @@
+.quizmenu__container {
+  width: 85%;
+  display: flex;
+  justify-content: space-evenly;
+  button {
+    height: 50px;
+    width: 50%;
+    border: none;
+    background-color: #fcfcfc;
+    box-shadow: 2px 2px 2px 2px #616161;
+  }
+}

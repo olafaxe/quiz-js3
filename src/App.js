@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-import QuizList from "./components/QuizList/QuizList";
 import QuizAdd from "./components/QuizAdd/QuizAdd";
-import QuizFilter from "./components/QuizFilter/QuizFilter";
+import QuizMenu from "./components/QuizMenu/QuizMenu";
 
 const App = () => {
   const [qList, setQList] = useState([]);
@@ -59,7 +58,7 @@ const App = () => {
   };
 
   const addQuizItem = (q, a, t) => {
-    let quizItem = { question: q, answer: a, tag: t, date: Date.now() };
+    let quizItem = { question: q, answer: [a], tag: t, date: Date.now() };
     sendingData("/quiz", "POST", quizItem).then(data => {
       if (data) {
         setQList([data, ...qList]);
@@ -90,13 +89,12 @@ const App = () => {
   return (
     <div className="App">
       <QuizAdd addQuizItem={addQuizItem} />
-      <QuizFilter toggleFilter={toggleFilter} />
-      {qList ? (
-        <QuizList
-          filteredList={filterQuizItems(qList)}
-          deleteQuizItem={deleteQuizItem}
-        />
-      ) : null}
+      <QuizMenu
+        filteredList={filterQuizItems(qList)}
+        deleteQuizItem={deleteQuizItem}
+        toggleFilter={toggleFilter}
+        gettingData={gettingData}
+      ></QuizMenu>
     </div>
   );
 };

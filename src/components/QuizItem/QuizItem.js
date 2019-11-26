@@ -13,7 +13,7 @@ const QuizItem = ({ question, answer, tag, deleteQ }) => {
         x
       </button>
       <h1>{question}</h1>
-      {hiddenAnswer ? <h4>{answer}</h4> : null}
+      {hiddenAnswer ? <h4>{answer[0]}</h4> : null}
       <button className="quizitem--toggle" onClick={toggleAnswer}>
         {!hiddenAnswer ? "Show Answer" : "Hide Answer"}
       </button>
