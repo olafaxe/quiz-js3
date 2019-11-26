@@ -30,8 +30,14 @@ const QuizPlay = ({ gettingData }) => {
   };
 
   const getCurrentQuiz = () => {
+    if (!qlistShuffled.length > 0) {
+      alert("Woop woop, we did it fam!");
+      setGameInProgress(!gameInProgress);
+      setCurrentQuiz(null);
+      shuffleQuizItems();
+      return;
+    }
     let quizList = qlistShuffled;
-    console.log(quizList[0].answer);
     for (let i = quizList[0].answer.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       [quizList[0].answer[i], quizList[0].answer[j]] = [
@@ -56,8 +62,6 @@ const QuizPlay = ({ gettingData }) => {
   useEffect(() => {
     shuffleQuizItems();
   }, []);
-
-  console.log(qlistShuffled);
 
   return (
     <div className="quizplay__container">
