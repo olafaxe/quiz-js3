@@ -58,7 +58,12 @@ const App = () => {
   };
 
   const addQuizItem = (q, a, t) => {
-    let quizItem = { question: q, answer: [a], tag: t, date: Date.now() };
+    let quizItem = {
+      question: q,
+      answer: [{ a: a, value: true }],
+      tag: t,
+      date: Date.now()
+    };
     sendingData("/quiz", "POST", quizItem).then(data => {
       if (data) {
         setQList([data, ...qList]);

@@ -16,7 +16,6 @@ const QuizMenu = ({
     setToggledMenu(e);
   };
 
-  console.log(toggledMenu);
   return (
     <>
       <div className="quizmenu__container">

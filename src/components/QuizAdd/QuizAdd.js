@@ -32,8 +32,6 @@ const QuizAdd = ({ addQuizItem }) => {
     setHideQuizAdd(!hideQuizAdd);
   };
 
-  console.log(tag);
-
   return (
     <div className="quizadd__container">
       <div className="quizadd__header">

@@ -6,19 +6,52 @@ const QuizPlay = ({ gettingData }) => {
   const [qlistShuffled, setQListShuffle] = useState([]);
   const [currentQuiz, setCurrentQuiz] = useState(null);
   const [gameInProgress, setGameInProgress] = useState(false);
+  // const [wrongAnswers, setWrongAnswers] = useState([
+  //   { a: "Ajax?", value: false },
+  //   { a: "I dont know anything about javascript", value: false },
+  //   { a: "json?", value: false },
+  //   { a: "I think i took the wrong course", value: false },
+  //   { a: "Can i call A-team?", value: false },
+  //   { a: "I Wish Christoffer was here", value: false },
+  //   { a: "I wish Daniel was here", value: false },
+  //   { a: "I'm glad Ola aint here", value: false }
+  // ]);
 
+  const wrongAnswers = [
+    { a: "Ajax?", value: false },
+    { a: "I dont know anything about javascript", value: false },
+    { a: "json?", value: false },
+    { a: "I think i took the wrong course", value: false },
+    { a: "Can i call A-team?", value: false },
+    { a: "I Wish Christoffer was here", value: false },
+    { a: "I wish Daniel was here", value: false },
+    { a: "I'm glad Ola aint here", value: false }
+  ];
+
+  const getWrongAnswers = () => {
+    let answers = wrongAnswers;
+    for (let i = answers.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [answers[i], answers[j]] = [answers[j], answers[i]];
+    }
+    answers.splice(0, answers.length - 3);
+    return answers;
+  };
   const shuffleQuizItems = () => {
     gettingData("/quiz").then(data => {
-      console.log(data);
       let items = data;
       for (let i = items.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [items[i], items[j]] = [items[j], items[i]];
       }
       items.map(quiz => {
-        quiz.answer[1] = "fel svar";
-        quiz.answer[2] = "fel svar";
-        quiz.answer[3] = "fel svar";
+        let wrongAnswers = getWrongAnswers();
+
+        return quiz.answer.push(
+          wrongAnswers[0],
+          wrongAnswers[1],
+          wrongAnswers[2]
+        );
       });
       setQListShuffle(items);
     });
@@ -51,7 +84,7 @@ const QuizPlay = ({ gettingData }) => {
   };
 
   const checkAnswer = e => {
-    if (e === "fel svar") {
+    if (!e.value) {
       console.log("FEEEL!");
     } else {
       console.log("RÄÄÄTTT");
@@ -62,7 +95,6 @@ const QuizPlay = ({ gettingData }) => {
   useEffect(() => {
     shuffleQuizItems();
   }, []);
-
   return (
     <div className="quizplay__container">
       {!currentQuiz ? <button onClick={startQuiz}>GO!</button> : null}
