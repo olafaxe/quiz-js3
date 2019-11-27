@@ -6,16 +6,8 @@ const QuizPlay = ({ gettingData }) => {
   const [qlistShuffled, setQListShuffle] = useState([]);
   const [currentQuiz, setCurrentQuiz] = useState(null);
   const [gameInProgress, setGameInProgress] = useState(false);
-  // const [wrongAnswers, setWrongAnswers] = useState([
-  //   { a: "Ajax?", value: false },
-  //   { a: "I dont know anything about javascript", value: false },
-  //   { a: "json?", value: false },
-  //   { a: "I think i took the wrong course", value: false },
-  //   { a: "Can i call A-team?", value: false },
-  //   { a: "I Wish Christoffer was here", value: false },
-  //   { a: "I wish Daniel was here", value: false },
-  //   { a: "I'm glad Ola aint here", value: false }
-  // ]);
+  const [answerFailed, setAnswerFailed] = useState(false);
+  const [answerCorrect, setAnswerCorrect] = useState(false);
 
   const wrongAnswers = [
     { a: "Ajax?", value: false },
@@ -83,11 +75,24 @@ const QuizPlay = ({ gettingData }) => {
     setQListShuffle(quizList);
   };
 
+  const wrongAnswerHandler = () => {
+    setAnswerFailed(true);
+    setTimeout(() => {
+      setAnswerFailed(false);
+    }, 750);
+  };
+
+  const correctAnswerHandler = () => {
+    setAnswerCorrect(true);
+    setTimeout(() => {
+      setAnswerCorrect(false);
+    }, 750);
+  };
   const checkAnswer = e => {
     if (!e.value) {
-      console.log("FEEEL!");
+      wrongAnswerHandler();
     } else {
-      console.log("RÄÄÄTTT");
+      correctAnswerHandler();
       getCurrentQuiz();
     }
   };
@@ -98,6 +103,16 @@ const QuizPlay = ({ gettingData }) => {
   return (
     <div className="quizplay__container">
       {!currentQuiz ? <button onClick={startQuiz}>GO!</button> : null}
+      {answerFailed ? (
+        <div className="quizplay--answer quizplay--wrong">
+          <h1>FEEEL</h1>
+        </div>
+      ) : null}
+      {answerCorrect ? (
+        <div className="quizplay--answer quizplay--correct">
+          <h1>Snyggt!</h1>
+        </div>
+      ) : null}
       {gameInProgress && currentQuiz ? (
         <QuizPlayItem
           checkAnswer={checkAnswer}

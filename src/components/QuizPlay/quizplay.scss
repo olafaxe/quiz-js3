@@ -1,12 +1,42 @@
 .quizplay__container {
   width: 100%;
   margin: 10px 0px 0px 0px;
+  position: relative;
   button {
     width: 85%;
     height: 55px;
     border: none;
     background-color: #b3aaaa;
     box-shadow: 2px 2px 2px 2px #756e6e;
+    color: #f8f8f8;
+  }
+}
+
+.quizplay--answer {
+  position: absolute;
+  top: 50px;
+  right: 5%;
+  width: 85%;
+  height: 200px;
+  font-size: 50px;
+}
+
+.quizplay--wrong {
+  background-color: #ff3300b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    color: #f8f8f8;
+  }
+}
+
+.quizplay--correct {
+  background-color: #00ff0db0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h1 {
     color: #f8f8f8;
   }
 }

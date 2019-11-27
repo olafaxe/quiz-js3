@@ -3,6 +3,14 @@
   margin: 5px 0px 5px 0px;
 }
 
+h1,
+h4 {
+  cursor: default;
+}
+
+button {
+  cursor: pointer;
+}
 .quizitem--delete {
   width: 20px;
   height: 20px;
