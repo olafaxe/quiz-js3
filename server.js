@@ -48,6 +48,18 @@ app.delete("/quiz/:id", (req, res) => {
     .then(() => res.send(mongo.ObjectID(req.params.id)));
 });
 
+app.patch("/quiz/:id", (req, res) => {
+  let answer = req.body;
+  const quizCollection = db.collection("quiz");
+
+  quizCollection
+    .updateOne(
+      { _id: mongo.ObjectID(req.params.id) },
+      { $set: { answer: answer } }
+    )
+    .then(data => res.send(data));
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build/index.html"));
 });

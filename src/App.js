@@ -57,6 +57,22 @@ const App = () => {
     }
   };
 
+  const editData = async (url, body) => {
+    console.log(url, body);
+    try {
+      let res = await fetch(url, {
+        method: "PATCH",
+        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" }
+      });
+      let data = await res.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   const addQuizItem = (q, a, t) => {
     let quizItem = {
       question: q,
@@ -85,6 +101,35 @@ const App = () => {
     });
   };
 
+  const editQuizItem = (url, a) => {
+    let answer = [{ a: a, value: true }];
+    editData(`/quiz/${url}`, answer).then(data => {
+      console.log(data);
+      if (data) {
+        let list = qList.map(q => {
+          if (q._id === url) {
+            q.answer = answer;
+          }
+          return q;
+        });
+        setQList(list);
+        console.log(list);
+        console.log(qList);
+      }
+      // if (data) {
+      //   // let list = qList.map(q => {
+      //   //   if (q._id === url) {
+      //   //     console.log(q);
+      //   //   }
+      //   // });
+      //   console.log(data);
+      // } else {
+      //   console.log("error");
+      // }
+    });
+    console.log("edit!");
+  };
+
   useEffect(() => {
     gettingData("/quiz").then(data =>
       data ? setQList([...data.sort((a, b) => b.date - a.date)]) : null
@@ -97,6 +142,7 @@ const App = () => {
       <QuizMenu
         filteredList={filterQuizItems(qList)}
         deleteQuizItem={deleteQuizItem}
+        editQuizItem={editQuizItem}
         toggleFilter={toggleFilter}
         gettingData={gettingData}
       ></QuizMenu>

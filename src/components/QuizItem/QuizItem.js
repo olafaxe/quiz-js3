@@ -1,15 +1,28 @@
 import React, { useState } from "react";
 import "../QuizItem/quizitem.scss";
 
-const QuizItem = ({ question, answer, tag, deleteQ }) => {
+const QuizItem = ({ id, question, answer, tag, deleteQ, editQuizItem }) => {
   const [hiddenAnswer, setHiddenAnswer] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [answerValue, setAnswerValue] = useState("");
 
   const toggleAnswer = () => {
     setHiddenAnswer(!hiddenAnswer);
   };
-  console.log(answer);
+
+  const switchEditMode = () => {
+    setEditMode(!editMode);
+  };
+
+  const changeInputValue = e => {
+    setAnswerValue(e.target.value);
+  };
+
   return (
     <div className={`quizitem__container quizitem--${tag}`}>
+      <button className="quizitem--edit" onClick={switchEditMode}>
+        E
+      </button>
       <button className="quizitem--delete" onClick={deleteQ}>
         x
       </button>
@@ -18,6 +31,20 @@ const QuizItem = ({ question, answer, tag, deleteQ }) => {
       <button className="quizitem--toggle" onClick={toggleAnswer}>
         {!hiddenAnswer ? "Show Answer" : "Hide Answer"}
       </button>
+      {editMode ? (
+        <>
+          <textarea
+            className="quizlist--text"
+            id="quizanswer"
+            cols="35"
+            rows="5"
+            value={answerValue}
+            onChange={changeInputValue}
+          />
+          <button onClick={() => editQuizItem(id, answerValue)}>add</button>
+        </>
+      ) : null}
+      {/*  */}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import "../QuizMenu/quizmenu.scss";
 const QuizMenu = ({
   filteredList,
   deleteQuizItem,
+  editQuizItem,
   toggleFilter,
   gettingData
 }) => {
@@ -28,6 +29,7 @@ const QuizMenu = ({
           <QuizList
             filteredList={filteredList}
             deleteQuizItem={deleteQuizItem}
+            editQuizItem={editQuizItem}
           />
         </>
       ) : toggledMenu === "play" ? (
