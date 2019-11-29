@@ -83,7 +83,6 @@ const QuizPlay = ({ gettingData }) => {
     setAnswerFailed(true);
     setTimeout(() => {
       setAnswerFailed(false);
-      getCurrentQuiz();
     }, 750);
   };
 
@@ -94,15 +93,16 @@ const QuizPlay = ({ gettingData }) => {
     setAnswerCorrect(true);
     setTimeout(() => {
       setAnswerCorrect(false);
-      getCurrentQuiz();
     }, 750);
   };
 
   const checkAnswer = e => {
     if (!e.value) {
       wrongAnswerHandler();
+      getCurrentQuiz();
     } else {
       correctAnswerHandler();
+      getCurrentQuiz();
     }
   };
 
