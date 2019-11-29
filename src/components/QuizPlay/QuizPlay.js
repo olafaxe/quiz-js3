@@ -8,6 +8,7 @@ const QuizPlay = ({ gettingData }) => {
   const [gameInProgress, setGameInProgress] = useState(false);
   const [answerFailed, setAnswerFailed] = useState(false);
   const [answerCorrect, setAnswerCorrect] = useState(false);
+  const [currentScore, setCurrentScore] = useState({ score: 0, max: 0 });
 
   const wrongAnswers = [
     { a: "Ajax?", value: false },
@@ -46,20 +47,23 @@ const QuizPlay = ({ gettingData }) => {
         );
       });
       setQListShuffle(items);
+      setCurrentScore({ score: currentScore.score, max: qlistShuffled.length });
     });
   };
 
   const startQuiz = () => {
+    setCurrentScore({ score: currentScore.score, max: 12 });
     setGameInProgress(!gameInProgress);
     getCurrentQuiz();
   };
 
   const getCurrentQuiz = () => {
-    if (!qlistShuffled.length > 0) {
-      alert("Woop woop, we did it fam!");
+    if (qlistShuffled.length <= 0) {
+      console.log(currentScore);
       setGameInProgress(!gameInProgress);
       setCurrentQuiz(null);
       shuffleQuizItems();
+      setCurrentScore({ score: 0, max: 0 });
       return;
     }
     let quizList = qlistShuffled;
@@ -79,27 +83,36 @@ const QuizPlay = ({ gettingData }) => {
     setAnswerFailed(true);
     setTimeout(() => {
       setAnswerFailed(false);
+      getCurrentQuiz();
     }, 750);
   };
 
   const correctAnswerHandler = () => {
+    let newScore = currentScore.score;
+    newScore++;
+    setCurrentScore({ score: newScore, max: currentScore.max });
     setAnswerCorrect(true);
     setTimeout(() => {
       setAnswerCorrect(false);
+      getCurrentQuiz();
     }, 750);
   };
+
   const checkAnswer = e => {
     if (!e.value) {
       wrongAnswerHandler();
     } else {
       correctAnswerHandler();
-      getCurrentQuiz();
     }
   };
 
   useEffect(() => {
     shuffleQuizItems();
   }, []);
+
+  console.log(qlistShuffled.length);
+  console.log(currentScore);
+
   return (
     <div className="quizplay__container">
       {!currentQuiz ? <button onClick={startQuiz}>GO!</button> : null}
