@@ -3,13 +3,11 @@ import "../QuizPlayItem/quizplayitem.scss";
 
 const QuizPlayItem = ({ question, answer, checkAnswer }) => {
   let number = 0;
-  console.log(answer);
   return (
     <div>
       <h1>{question}</h1>
       <div className="quizplayitem__container">
         {answer.map(answer => {
-          console.log(answer);
           return (
             <div
               key={number++}

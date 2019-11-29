@@ -4,7 +4,7 @@ import "../QuizItem/quizitem.scss";
 const QuizItem = ({ id, question, answer, tag, deleteQ, editQuizItem }) => {
   const [hiddenAnswer, setHiddenAnswer] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [answerValue, setAnswerValue] = useState("");
+  const [answerValue, setAnswerValue] = useState(answer[0].a);
 
   const toggleAnswer = () => {
     setHiddenAnswer(!hiddenAnswer);
@@ -18,33 +18,48 @@ const QuizItem = ({ id, question, answer, tag, deleteQ, editQuizItem }) => {
     setAnswerValue(e.target.value);
   };
 
+  const finishedEdit = () => {
+    editQuizItem(id, answerValue);
+    switchEditMode();
+  };
+
   return (
     <div className={`quizitem__container quizitem--${tag}`}>
-      <button className="quizitem--edit" onClick={switchEditMode}>
-        E
-      </button>
       <button className="quizitem--delete" onClick={deleteQ}>
         x
       </button>
       <h1>{question}</h1>
-      {hiddenAnswer ? <h4>{answer[0].a}</h4> : null}
+      {hiddenAnswer ? (
+        <>
+          {!editMode ? (
+            <>
+              <h4>{answer[0].a}</h4>{" "}
+              <div className="quizitem--edit__container">
+                <h3 className="quizitem--edit edit" onClick={switchEditMode}>
+                  Edit
+                </h3>
+              </div>
+            </>
+          ) : (
+            <>
+              <textarea
+                className="quizlist--text"
+                id="quizanswer"
+                value={answerValue}
+                onChange={changeInputValue}
+              />
+              <div className="quizitem--edit__container">
+                <h3 className="quizitem--edit done" onClick={finishedEdit}>
+                  Done
+                </h3>
+              </div>
+            </>
+          )}
+        </>
+      ) : null}
       <button className="quizitem--toggle" onClick={toggleAnswer}>
         {!hiddenAnswer ? "Show Answer" : "Hide Answer"}
       </button>
-      {editMode ? (
-        <>
-          <textarea
-            className="quizlist--text"
-            id="quizanswer"
-            cols="35"
-            rows="5"
-            value={answerValue}
-            onChange={changeInputValue}
-          />
-          <button onClick={() => editQuizItem(id, answerValue)}>add</button>
-        </>
-      ) : null}
-      {/*  */}
     </div>
   );
 };

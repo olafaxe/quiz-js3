@@ -8,8 +8,26 @@ h4 {
   cursor: default;
 }
 
-button {
+textarea {
+  resize: none;
+  width: 65%;
+  height: 75px;
+}
+.quizitem--edit__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quizitem--edit {
   cursor: pointer;
+}
+
+.edit:hover {
+  color: #f8f8f8;
+}
+
+.done:hover {
+  color: #2cd42c;
 }
 .quizitem--delete {
   width: 20px;
