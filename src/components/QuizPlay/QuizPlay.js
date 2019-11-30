@@ -8,7 +8,9 @@ const QuizPlay = ({ gettingData }) => {
   const [gameInProgress, setGameInProgress] = useState(false);
   const [answerFailed, setAnswerFailed] = useState(false);
   const [answerCorrect, setAnswerCorrect] = useState(false);
-  const [currentScore, setCurrentScore] = useState({ score: 0, max: 0 });
+  const [lastGame, setLastGame] = useState(false);
+  const [score, setScore] = useState(0);
+  const [maxScore, setMaxScore] = useState(0);
 
   const wrongAnswers = [
     { a: "Ajax?", value: false },
@@ -47,23 +49,23 @@ const QuizPlay = ({ gettingData }) => {
         );
       });
       setQListShuffle(items);
-      setCurrentScore({ score: currentScore.score, max: qlistShuffled.length });
     });
   };
 
   const startQuiz = () => {
-    setCurrentScore({ score: currentScore.score, max: 12 });
     setGameInProgress(!gameInProgress);
+    setScore(0);
+    setMaxScore(qlistShuffled.length);
+    setLastGame(false);
     getCurrentQuiz();
   };
 
   const getCurrentQuiz = () => {
     if (qlistShuffled.length <= 0) {
-      console.log(currentScore);
       setGameInProgress(!gameInProgress);
       setCurrentQuiz(null);
       shuffleQuizItems();
-      setCurrentScore({ score: 0, max: 0 });
+      setLastGame(true);
       return;
     }
     let quizList = qlistShuffled;
@@ -87,9 +89,9 @@ const QuizPlay = ({ gettingData }) => {
   };
 
   const correctAnswerHandler = () => {
-    let newScore = currentScore.score;
+    let newScore = score;
     newScore++;
-    setCurrentScore({ score: newScore, max: currentScore.max });
+    setScore(newScore);
     setAnswerCorrect(true);
     setTimeout(() => {
       setAnswerCorrect(false);
@@ -108,10 +110,8 @@ const QuizPlay = ({ gettingData }) => {
 
   useEffect(() => {
     shuffleQuizItems();
+    setLastGame(false);
   }, []);
-
-  console.log(qlistShuffled.length);
-  console.log(currentScore);
 
   return (
     <div className="quizplay__container">
@@ -132,6 +132,11 @@ const QuizPlay = ({ gettingData }) => {
           question={currentQuiz.question}
           answer={currentQuiz.answer}
         />
+      ) : null}
+      {lastGame ? (
+        <h2>
+          {score} out of {maxScore}
+        </h2>
       ) : null}
     </div>
   );
