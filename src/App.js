@@ -91,7 +91,6 @@ const App = () => {
   const deleteQuizItem = url => {
     deletingData(`/quiz/${url}`).then(data => {
       if (data) {
-        console.log(data);
         let list = qList.filter(q => q._id !== data);
         setQList([...list]);
       } else {
